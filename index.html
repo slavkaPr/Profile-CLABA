@@ -10,8 +10,7 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background: url("video.mp4") no-repeat center center fixed;
-        background-size: cover;
+        background: #000;
         font-family: Arial, sans-serif;
         color: white;
     }
@@ -23,7 +22,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        z-index: -2;
+        z-index: -10;
         filter: brightness(0.35);
     }
 
@@ -58,6 +57,7 @@
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 0 40px rgba(0,0,0,0.7);
+        z-index: 20;
     }
 
     .avatar {
@@ -99,19 +99,27 @@
         transform: scale(1.05);
     }
 
-    /* Цитаты */
+    /* Анимированные цитаты */
     .quote {
         position: absolute;
         font-size: 26px;
         opacity: 0.22;
         text-shadow: 0 0 12px black;
-        transform: rotate(-3deg);
-        animation: float 13s ease-in-out infinite alternate;
+        animation: drift 12s ease-in-out infinite alternate,
+                   glow 6s ease-in-out infinite alternate;
     }
 
-    @keyframes float {
-        from { transform: translateY(0) rotate(-3deg); }
-        to { transform: translateY(15px) rotate(1deg); }
+    /* Плавное движение */
+    @keyframes drift {
+        0%   { transform: translateY(0px) rotate(-3deg); }
+        50%  { transform: translateY(-15px) rotate(1deg); }
+        100% { transform: translateY(10px) rotate(-2deg); }
+    }
+
+    /* Лёгкое "дыхание" */
+    @keyframes glow {
+        from { opacity: 0.18; filter: blur(1px); }
+        to   { opacity: 0.32; filter: blur(2px); }
     }
 
     /* Центральная цитата */
@@ -119,9 +127,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -250%);
+        transform: translate(-50%, -260%);
         font-size: 32px;
-        opacity: 0.30;
+        opacity: 0.28;
         width: 90%;
         text-align: center;
         text-shadow: 0 0 20px rgba(0,0,0,1);
@@ -129,8 +137,8 @@
     }
 
     @keyframes fade {
-        from { opacity: 0.15; }
-        to { opacity: 0.38; }
+        from { opacity: 0.16; }
+        to   { opacity: 0.38; }
     }
 
 </style>
@@ -142,7 +150,7 @@
     <source src="video.mp4" type="video/mp4">
 </video>
 
-<!-- ❄ Генератор снежинок -->
+<!-- ❄ Снежинки -->
 <script>
 for (let i = 0; i < 70; i++) {
     let s = document.createElement("div");
@@ -154,17 +162,17 @@ for (let i = 0; i < 70; i++) {
 }
 </script>
 
-<!-- ЦЕНТРАЛЬНАЯ ЦИТАТА -->
+<!-- Центральная цитата -->
 <div class="center-quote">
     «Пока мы не потеряем всё — мы не обретём свободу»
 </div>
 
-<!-- ЛЕВЫЕ/ПРАВЫЕ ЦИТАТЫ -->
-<div class="quote" style="top: 60px; left: 40px;">
+<!-- Анимированные боковые цитаты -->
+<div class="quote" style="top: 70px; left: 40px;">
     «Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»
 </div>
 
-<div class="quote" style="top: 80px; right: 40px;">
+<div class="quote" style="top: 90px; right: 40px;">
     «Потеряв всё, мы обретаем свободу»
 </div>
 
