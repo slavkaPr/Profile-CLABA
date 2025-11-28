@@ -10,117 +10,150 @@
             padding: 0;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            color: white;
             height: 100vh;
+            color: white;
         }
 
-        /* ВИДЕО ФОН */
+        /* ВИДЕО-ФОН */
         #bg-video {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -2;
+            z-index: -3;
         }
 
         /* ЛЁГКИЙ ШУМ */
         .noise {
             position: fixed;
             inset: 0;
-            background: url('https://i.imgur.com/4NJlZyR.png');
+            background: url("https://i.imgur.com/4NJlZyR.png");
             opacity: 0.12;
             mix-blend-mode: overlay;
+            z-index: -2;
+        }
+
+        /* РАСПЛЫВАЮЩИЕСЯ ЦИТАТЫ */
+        .floating-quote {
+            position: absolute;
+            font-size: 22px;
+            opacity: 0.15;
+            transform: rotate(-6deg);
+            white-space: nowrap;
+            animation: drift 26s linear infinite;
             pointer-events: none;
-            z-index: -1;
         }
 
-        /* КАРТОЧКА */
+        @keyframes drift {
+            0% { transform: translateY(0) rotate(-6deg); }
+            100% { transform: translateY(-900px) rotate(-6deg); }
+        }
+
+        /* СТИЛЬ КАРТОЧКИ — ОБГОРЕВШИЙ */
         .card {
-            width: 350px;
+            width: 380px;
+            padding: 35px;
             margin: 120px auto 0;
-            background: rgba(0, 0, 0, 0.72);
-            padding: 30px;
-            border-radius: 18px;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            border-radius: 22px;
             position: relative;
-            box-shadow: 0 0 40px #ff330020;
-            backdrop-filter: blur(4px);
-            border: 1px solid #ffffff15;
+            box-shadow:
+                0 0 50px #ff330020,
+                inset 0 0 40px #000000aa;
+            border: 1px solid #ffffff10;
         }
 
-        /* ОБГОРЕВШАЯ РАМКА */
+        /* ЭФФЕКТ ОБГОРЕЛОЙ КРОМКИ */
         .card::before {
             content: "";
             position: absolute;
-            inset: -3px;
-            border-radius: 20px;
-            background: radial-gradient(circle, #ff3300aa 0%, transparent 60%);
-            filter: blur(25px);
+            inset: -10px;
+            background: radial-gradient(
+                circle,
+                #ff4000aa 0%,
+                transparent 70%
+            );
+            border-radius: 30px;
+            filter: blur(35px);
             z-index: -1;
         }
 
         /* АВАТАР */
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid #5865F2;
-            margin-bottom: 10px;
+            border: 5px solid #5865F2;
+            margin-bottom: 12px;
         }
 
-        /* КНОПКА */
+        h1 {
+            margin: 10px 0 0;
+            font-size: 32px;
+        }
+
         .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
+            margin-top: 25px;
+            padding: 14px 28px;
             background: #5865F2;
-            border-radius: 10px;
             color: white;
             font-weight: bold;
+            border-radius: 12px;
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.25s;
         }
 
         .btn:hover {
-            background: #4752C4;
+            background: #4d57d0;
         }
 
-        /* ЦИТАТА */
-        .quote {
+        /* Главная цитата */
+        .main-quote {
             position: fixed;
-            bottom: 40px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 22px;
-            opacity: 0.55;
+            font-size: 24px;
+            opacity: 0.7;
+            text-shadow: 0 0 15px #000;
         }
-
     </style>
 </head>
 
 <body>
 
-    <!-- ВИДЕО -->
-    <video autoplay muted loop id="bg-video">
-        <source src="video.mp4" type="video/mp4">
-    </video>
+<!-- ВИДЕО ФОН -->
+<video autoplay muted loop id="bg-video">
+    <source src="video.mp4" type="video/mp4">
+</video>
 
-    <div class="noise"></div>
+<div class="noise"></div>
 
-    <!-- КАРТОЧКА -->
-    <div class="card">
-        <img class="avatar" src="avatar.png" alt="avatar">
-        <h1>CLABA</h1>
-        <div>@puflik123</div>
+<!-- ДВИЖУЩИЕСЯ ЦИТАТЫ -->
+<div class="floating-quote" style="top: 80%; left: 10%;">«Пока мы не потеряем всё — мы не сможем быть свободными»</div>
+<div class="floating-quote" style="top: 90%; left: 60%;">«Ты не твоя работа»</div>
+<div class="floating-quote" style="top: 110%; left: 30%;">«Хуже момента нет — но он ведёт к свободе»</div>
+<div class="floating-quote" style="top: 100%; left: 75%;">«Мыло. Взрывчатка. Чистота.»</div>
+<div class="floating-quote" style="top: 120%; left: 15%;">«Только потеряв всё, мы обретаем свободу»</div>
+<div class="floating-quote" style="top: 140%; left: 50%;">«Мы — все певцы в одном баритоне боли»</div>
 
-        <a class="btn" href="https://discord.com/users/1234567890">Написать в Discord</a>
-    </div>
+<!-- КАРТОЧКА -->
+<div class="card">
+    <img src="avatar.png" class="avatar">
+    <h1>CLABA</h1>
+    <div>@puflik123</div>
 
-    <!-- ЦИТАТА -->
-    <div class="quote">«Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»</div>
+    <a class="btn" href="https://discord.com/users/1234567890">Написать в Discord</a>
+</div>
+
+<!-- Главная цитата -->
+<div class="main-quote">
+    «Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»
+</div>
 
 </body>
 </html>
