@@ -31,11 +31,12 @@
     .quote {
         position: absolute;
         font-size: 26px;
-        opacity: 0.07;
+        opacity: 0.06;
         font-weight: bold;
         white-space: nowrap;
         animation: float 18s linear infinite;
         pointer-events: none;
+        z-index: 1;
     }
 
     @keyframes float {
@@ -43,33 +44,36 @@
         100% { transform: translateX(120vw); }
     }
 
-    /* ===== Карточка газетная ===== */
-    .card.newspaper {
+    /* ===== Карточка ===== */
+    .card {
         position: relative;
         width: 430px;
         padding: 40px;
-        background: #1a1a1a;
-        background-image: url("https://i.imgur.com/Ix3S3qP.jpeg");
-        background-size: cover;
-        border-radius: 14px;
         margin: 80px auto;
-        backdrop-filter: blur(3px);
-        box-shadow: 0 0 35px rgba(0,0,0,0.8), 
-                    inset 0 0 45px rgba(0,0,0,0.7);
-        border: 1px solid rgba(255,255,255,0.08);
-        filter: contrast(1.1);
         text-align: center;
+        border-radius: 14px;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 35px rgba(0,0,0,0.8),
+                    inset 0 0 45px rgba(0,0,0,0.7);
+        border: 1px solid rgba(255,255,255,0.1);
+        z-index: 100;
+    }
+
+    /* Газетная текстура */
+    .card {
+        background: url("https://i.ibb.co/6JNcL8m/newspaper-texture.jpg");
+        background-size: cover;
     }
 
     /* Обгоревшие края */
-    .card.newspaper::before {
+    .card::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: url("https://i.imgur.com/1nl50gJ.png");
+        background: url("https://i.ibb.co/2sHn5Mp/burned-frame.png");
         background-size: cover;
-        pointer-events: none;
         opacity: 0.55;
+        pointer-events: none;
     }
 
     /* Скотч */
@@ -81,6 +85,7 @@
         position: absolute;
         top: -20px;
         filter: drop-shadow(0 0 4px rgba(0,0,0,0.4));
+        z-index: 101;
     }
 
     .tape-left { left: 20px; transform: rotate(-8deg); }
@@ -91,12 +96,13 @@
         width: 140px;
         height: 140px;
         border-radius: 50%;
-        border: 4px solid rgba(255,255,255,0.7);
+        border: 4px solid rgba(255,255,255,0.75);
         object-fit: cover;
         margin-bottom: 20px;
+        position: relative;
+        z-index: 102;
     }
 
-    /* Имя + Тег */
     h1 {
         font-size: 32px;
         margin-bottom: 10px;
@@ -104,7 +110,7 @@
 
     .tag {
         font-size: 18px;
-        opacity: 0.8;
+        opacity: 0.85;
     }
 
     /* Чёрная кнопка */
@@ -135,13 +141,13 @@
     <source src="video.mp4" type="video/mp4">
 </video>
 
-<!-- ===== Случайные цитаты ===== -->
+<!-- ===== Плавающие цитаты ===== -->
 <div class="quote" style="top:10%; left:-300px;">«Хуже момента нет — но он ведёт к свободе»</div>
 <div class="quote" style="top:40%; left:-400px; animation-duration:22s;">«Только потеряв всё, мы обретаем свободу»</div>
 <div class="quote" style="top:70%; left:-500px; animation-duration:26s;">«Каждому нужно лишь немного боли»</div>
 
 <!-- ===== Карточка ===== -->
-<div class="card newspaper">
+<div class="card">
     <div class="tape tape-left"></div>
     <div class="tape tape-right"></div>
 
