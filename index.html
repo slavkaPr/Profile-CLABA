@@ -14,50 +14,52 @@
             color: white;
         }
 
-        /* Видео фон */
+        /* Видео-фон */
         #bgVideo {
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 120%;
-            height: 120%;
+            min-width: 100%;
+            min-height: 100%;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            z-index: -2;
-            filter: brightness(0.4) blur(1px);
+            z-index: -5;
+            filter: brightness(0.35) blur(1px);
         }
 
-        /* затемнение сверху */
+        /* затемняющий слой */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.35);
-            z-index: -1;
+            background: rgba(0,0,0,0.4);
+            z-index: -4;
         }
 
-        /* Карточка */
+        /* Карточка профиля */
         .card {
-            width: 420px;
+            width: 450px;
             padding: 40px;
             background: rgba(0,0,0,0.55);
             border-radius: 25px;
-            margin: 100px auto;
-            text-align: center;
             backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            box-shadow: 0 0 40px rgba(0,0,0,0.65);
+            margin: 120px auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 155px;
+            height: 155px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid rgba(255,255,255,0.5);
+            border: 4px solid rgba(255,255,255,0.45);
             margin-top: -100px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.25);
+            box-shadow: 0 0 22px rgba(255,255,255,0.25);
         }
 
         .btn {
@@ -67,9 +69,9 @@
             background: black;
             border-radius: 10px;
             font-weight: bold;
-            color: white;
             text-decoration: none;
-            transition: 0.3s;
+            color: white;
+            transition: 0.25s;
         }
 
         .btn:hover {
@@ -79,42 +81,51 @@
         /* Цитаты */
         .quote {
             position: fixed;
-            opacity: 0.25;
-            font-size: 26px;
+            opacity: 0.22;
+            font-size: 28px;
             font-weight: bold;
-            white-space: nowrap;
             user-select: none;
+            z-index: 1;
+            pointer-events: none;
+            animation: fadeMove 7s ease-in-out infinite alternate;
         }
 
-        #q1 { top: 15%; left: 5%; transform: rotate(-5deg); }
-        #q2 { top: 25%; right: 5%; transform: rotate(4deg); }
-        #q3 { bottom: 15%; left: 10%; transform: rotate(3deg); }
-        #q4 { bottom: 10%; right: 10%; transform: rotate(-4deg); }
+        @keyframes fadeMove {
+            0% { opacity: 0.15; transform: translateY(0px); }
+            100% { opacity: 0.32; transform: translateY(10px); }
+        }
+
+        #q1 { top: 10%; left: 6%; transform: rotate(-4deg); }
+        #q2 { top: 18%; right: 5%; transform: rotate(4deg); }
+        #q3 { bottom: 18%; left: 7%; transform: rotate(3deg); }
+        #q4 { bottom: 10%; right: 7%; transform: rotate(-4deg); }
 
         /* Пепел */
         .ash {
             position: fixed;
-            top: -20px;
+            top: -10px;
             left: 0;
-            color: rgba(200, 200, 200, 0.4);
-            font-size: 6px;
+            width: 6px;
+            height: 6px;
+            background: rgba(180,180,180,0.4);
+            border-radius: 50%;
             pointer-events: none;
-            z-index: 50;
+            z-index: 3;
             opacity: 0.3;
-            filter: blur(0.8px);
-            animation: ashFall linear infinite, ashRotate ease-in-out infinite;
+            filter: blur(1px);
+            animation: ashFall linear infinite, ashRotate linear infinite;
         }
 
         @keyframes ashFall {
-            0% { transform: translateY(-10px) translateX(0); }
-            100% { transform: translateY(110vh) translateX(40px); }
+            0% { transform: translateY(-20px); }
+            100% { transform: translateY(110vh); }
         }
 
         @keyframes ashRotate {
             0% { transform: rotate(0deg); }
-            50% { transform: rotate(15deg); }
-            100% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
+
     </style>
 </head>
 
@@ -138,29 +149,24 @@
         <img class="avatar" src="avatar.jpg" alt="avatar">
         <h1>CLABA</h1>
         <div>@puflik123</div>
-        <a class="btn" href="https://discord.com/users/123456789">Написать в Discord</a>
+        <a class="btn" href="#">Написать в Discord</a>
     </div>
 
     <!-- Пепел -->
     <script>
-        function createAsh() {
+        function addAsh() {
             const ash = document.createElement("div");
             ash.classList.add("ash");
-            ash.innerHTML = "•";
 
             ash.style.left = Math.random() * 100 + "vw";
-            ash.style.animationDuration = (6 + Math.random() * 10) + "s";
-            ash.style.opacity = (0.1 + Math.random() * 0.4);
-            ash.style.fontSize = (3 + Math.random() * 4) + "px";
+            ash.style.animationDuration = (6 + Math.random() * 6) + "s";
 
             document.body.appendChild(ash);
 
-            setTimeout(() => {
-                ash.remove();
-            }, 15000);
+            setTimeout(() => ash.remove(), 15000);
         }
 
-        setInterval(createAsh, 150);
+        setInterval(addAsh, 130);
     </script>
 
 </body>
