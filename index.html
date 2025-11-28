@@ -1,163 +1,166 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLABA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLABA</title>
 
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
+<style>
 
-        /* Видео-фон */
-        #bgVideo {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            z-index: -5;
-            filter: brightness(0.45);
-        }
+    /* ==== ОБНУЛЕНИЕ ==== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        /* Лёгкий серый туман */
-        .overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.25);
-            backdrop-filter: blur(1px);
-            z-index: -4;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        background: #000;
+        color: white;
+    }
 
-        /* Карточка профиля */
-        .card {
-            width: 430px;
-            padding: 40px;
-            background: rgba(0,0,0,0.55);
-            border-radius: 25px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(0,0,0,0.55);
-            margin: 140px auto;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
+    /* ==== ВИДЕО-ФОН ==== */
+    #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        filter: brightness(0.45);
+        z-index: -10;
+    }
 
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-top: -100px;
-            border: 4px solid rgba(255,255,255,0.45);
-            box-shadow: 0 0 20px rgba(255,255,255,0.25);
-        }
+    /* ==== СНЕЖИНКИ ==== */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: #fff;
+        font-size: 10px;
+        opacity: 0.8;
+        animation: fall linear infinite;
+        z-index: 5;
+    }
 
-        .btn {
-            margin-top: 25px;
-            padding: 12px 24px;
-            background: black;
-            border-radius: 10px;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-            transition: 0.25s;
-        }
+    @keyframes fall {
+        0% { transform: translateY(-10px) translateX(0); }
+        100% { transform: translateY(110vh) translateX(40px); }
+    }
 
-        .btn:hover {
-            background: #222;
-        }
+    /* ==== КАРТОЧКА ==== */
+    .card {
+        margin: 100px auto 0;
+        width: 420px;
+        padding: 40px 30px;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        text-align: center;
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+        position: relative;
+        z-index: 10;
+    }
 
-        /* Цитаты */
-        .quote {
-            position: fixed;
-            opacity: 0.23;
-            font-size: 30px;
-            font-weight: bold;
-            user-select: none;
-            z-index: 1;
-            pointer-events: none;
-            animation: wave 6s ease-in-out infinite alternate;
-        }
+    /* ==== АВАТАР ==== */
+    .avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 20px;
+        border: 4px solid rgba(255,255,255,0.6);
+        box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    }
 
-        @keyframes wave {
-            0% { transform: translateY(0px); opacity: 0.20; }
-            100% { transform: translateY(12px); opacity: 0.32; }
-        }
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-        #q1 { top: 10%; left: 6%; transform: rotate(-4deg); }
-        #q2 { top: 12%; right: 5%; transform: rotate(3deg); }
-        #q3 { bottom: 16%; left: 7%; transform: rotate(2deg); }
-        #q4 { bottom: 10%; right: 7%; transform: rotate(-4deg); }
+    .name {
+        font-size: 34px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-        /* Снежинки */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: white;
-            opacity: 0.8;
-            font-size: 10px;
-            pointer-events: none;
-            z-index: 3;
-            animation: fall linear infinite;
-        }
+    .tag {
+        font-size: 18px;
+        margin-bottom: 25px;
+        color: #ccc;
+    }
 
-        @keyframes fall {
-            0% { transform: translateY(-10px); opacity: 0.8; }
-            100% { transform: translateY(110vh); opacity: 0.1; }
-        }
-    </style>
+    .btn {
+        background: black;
+        padding: 14px 28px;
+        border-radius: 12px;
+        display: inline-block;
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #222;
+    }
+
+    /* ==== ЦИТАТЫ ==== */
+    .quote {
+        position: absolute;
+        font-size: 26px;
+        color: rgba(255,255,255,0.15);
+        font-weight: bold;
+        white-space: nowrap;
+        pointer-events: none;
+        animation: floatQuote 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatQuote {
+        0% { transform: translateY(0) rotate(-4deg); opacity: 0.25; }
+        50% { transform: translateY(-25px) rotate(4deg); opacity: 0.35; }
+        100% { transform: translateY(0) rotate(-4deg); opacity: 0.25; }
+    }
+
+</style>
 </head>
-
 <body>
 
-    <!-- Видео фон -->
-    <video id="bgVideo" autoplay muted loop>
-        <source src="video.mp4" type="video/mp4">
-    </video>
+<!-- ВИДЕО -->
+<video id="bg-video" src="video.mp4" autoplay muted loop></video>
 
-    <div class="overlay"></div>
+<!-- СНЕЖИНКИ -->
+<script>
+for (let i = 0; i < 70; i++) {
+    let s = document.createElement("div");
+    s.className = "snowflake";
+    s.textContent = "•";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.animationDuration = 8 + Math.random() * 8 + "s";
+    document.body.appendChild(s);
+}
+</script>
 
-    <!-- Цитаты -->
-    <div id="q1" class="quote">«Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»</div>
-    <div id="q2" class="quote">«Только потеряв всё, мы обретаем свободу»</div>
-    <div id="q3" class="quote">«Ты — не твоя работа»</div>
-    <div id="q4" class="quote">«Ты — не твой банковский счёт»</div>
+<!-- КАРТОЧКА -->
+<div class="card">
 
-    <!-- Карточка -->
-    <div class="card">
-        <img class="avatar" src="avatar.jpg">
-        <h1>CLABA</h1>
-        <div>@puflik123</div>
-        <a class="btn" href="#">Написать в Discord</a>
+    <div class="avatar">
+        <img src="avatar.jpg">
     </div>
 
-    <!-- Снежинки -->
-    <script>
-        function createSnowflake() {
-            const snow = document.createElement("div");
-            snow.classList.add("snowflake");
-            snow.textContent = "•";
+    <div class="name">CLABA</div>
+    <div class="tag">@puflik123</div>
 
-            snow.style.left = Math.random() * 100 + "vw";
-            snow.style.fontSize = (6 + Math.random() * 8) + "px";
-            snow.style.animationDuration = (8 + Math.random() * 12) + "s";
+    <a href="https://discord.com/users/" class="btn">Написать в Discord</a>
+</div>
 
-            document.body.appendChild(snow);
-
-            setTimeout(() => snow.remove(), 20000);
-        }
-
-        setInterval(createSnowflake, 120);
-    </script>
+<!-- ЦИТАТЫ -->
+<div class="quote" style="top: 10%; left: 3%;">«Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»</div>
+<div class="quote" style="top: 18%; right: 3%;">«Потеряв всё, мы обретаем свободу»</div>
+<div class="quote" style="bottom: 10%; left: 5%;">«Ты — не твоя работа»</div>
+<div class="quote" style="bottom: 5%; right: 5%;">«Ты — не твой банковский счёт»</div>
 
 </body>
 </html>
