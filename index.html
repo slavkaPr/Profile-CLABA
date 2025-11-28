@@ -1,170 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>CLABA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLABA</title>
 
-<style>
-    body {
-        margin: 0;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-        background: #000;
-    }
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
-    /* Фон-видео */
-    #bg {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: brightness(45%);
-        z-index: -2;
-        animation: bgMove 12s ease-in-out infinite alternate;
-    }
+        /* Видео фон */
+        #bgVideo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.4) blur(1px);
+        }
 
-    @keyframes bgMove {
-        0% { transform: scale(1) translateX(0); }
-        100% { transform: scale(1.1) translateX(-25px); }
-    }
+        /* затемнение сверху */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.35);
+            z-index: -1;
+        }
 
-    /* Полупрозрачный слой */
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        z-index: -1;
-    }
+        /* Карточка */
+        .card {
+            width: 420px;
+            padding: 40px;
+            background: rgba(0,0,0,0.55);
+            border-radius: 25px;
+            margin: 100px auto;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        }
 
-    /* Газетная карточка */
-    .card {
-        width: 440px;
-        margin: 90px auto;
-        padding: 40px 30px 55px;
-        background: #111;
-        color: #fff;
-        text-align: center;
-        border-radius: 14px;
-        box-shadow: 0 0 25px rgba(255, 255, 255, 0.12),
-                    0 0 65px rgba(255, 255, 255, 0.06);
-        border: 2px solid rgba(255,255,255,0.15);
-        position: relative;
-    }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.5);
+            margin-top: -100px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.25);
+        }
 
-    /* Имитация газетной бумаги */
-    .card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: url("newspaper.png");
-        background-size: cover;
-        opacity: 0.07;
-        z-index: -1;
-        mix-blend-mode: screen;
-    }
+        .btn {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 12px 24px;
+            background: black;
+            border-radius: 10px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-    /* Прожжённая рамка */
-    .burned {
-        position: absolute;
-        inset: -20px;
-        background: url("burned_frame.png") center/contain no-repeat;
-        z-index: -1;
-        opacity: 0.7;
-        pointer-events: none;
-    }
+        .btn:hover {
+            background: #222;
+        }
 
-    /* Аватар */
-    .avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid #fff;
-        box-shadow: 0 0 25px rgba(255,255,255,0.4);
-        margin-bottom: 15px;
-    }
+        /* Цитаты */
+        .quote {
+            position: fixed;
+            opacity: 0.25;
+            font-size: 26px;
+            font-weight: bold;
+            white-space: nowrap;
+            user-select: none;
+        }
 
-    h1 {
-        margin: 10px 0 5px;
-        font-size: 34px;
-        letter-spacing: 2px;
-    }
+        #q1 { top: 15%; left: 5%; transform: rotate(-5deg); }
+        #q2 { top: 25%; right: 5%; transform: rotate(4deg); }
+        #q3 { bottom: 15%; left: 10%; transform: rotate(3deg); }
+        #q4 { bottom: 10%; right: 10%; transform: rotate(-4deg); }
 
-    .nick {
-        opacity: 0.8;
-        margin-bottom: 25px;
-    }
+        /* Пепел */
+        .ash {
+            position: fixed;
+            top: -20px;
+            left: 0;
+            color: rgba(200, 200, 200, 0.4);
+            font-size: 6px;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+            filter: blur(0.8px);
+            animation: ashFall linear infinite, ashRotate ease-in-out infinite;
+        }
 
-    /* Чёрная кнопка */
-    .btn {
-        display: inline-block;
-        padding: 12px 35px;
-        background: #000;
-        border-radius: 8px;
-        color: #fff;
-        text-decoration: none;
-        font-size: 18px;
-        transition: 0.25s;
-        border: 2px solid #333;
-    }
+        @keyframes ashFall {
+            0% { transform: translateY(-10px) translateX(0); }
+            100% { transform: translateY(110vh) translateX(40px); }
+        }
 
-    .btn:hover {
-        background: #222;
-        transform: scale(1.04);
-    }
-
-    /* Цитаты */
-    .quote {
-        position: absolute;
-        color: rgba(255,255,255,0.14);
-        font-size: 22px;
-        font-weight: bold;
-        pointer-events: none;
-        animation: float 9s ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0) rotate(-3deg);}
-        100% { transform: translateY(-25px) rotate(3deg);}
-    }
-</style>
+        @keyframes ashRotate {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
 </head>
 
 <body>
 
-<video id="bg" autoplay loop muted>
-    <source src="video.mp4" type="video/mp4">
-</video>
+    <!-- Видео фон -->
+    <video id="bgVideo" autoplay muted loop>
+        <source src="video.mp4" type="video/mp4">
+    </video>
 
-<div class="overlay"></div>
+    <div class="overlay"></div>
 
-<div class="quote" style="top: 22%; left: 5%; animation-delay:0s;">
-    «Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»
-</div>
+    <!-- Цитаты -->
+    <div id="q1" class="quote">«Мы работаем в дерьме, чтоб купить дерьмо, нам ненужное»</div>
+    <div id="q2" class="quote">«Только потеряв всё, мы обретаем свободу»</div>
+    <div id="q3" class="quote">«Ты — не твоя работа»</div>
+    <div id="q4" class="quote">«Ты — не твой банковский счёт»</div>
 
-<div class="quote" style="top: 65%; left: 10%; animation-delay:1.2s;">
-    «Ты — не твоя работа»
-</div>
+    <!-- Карточка -->
+    <div class="card">
+        <img class="avatar" src="avatar.jpg" alt="avatar">
+        <h1>CLABA</h1>
+        <div>@puflik123</div>
+        <a class="btn" href="https://discord.com/users/123456789">Написать в Discord</a>
+    </div>
 
-<div class="quote" style="top: 30%; right: 5%; animation-delay:2.4s;">
-    «Только потеряв всё, мы обретаем свободу»
-</div>
+    <!-- Пепел -->
+    <script>
+        function createAsh() {
+            const ash = document.createElement("div");
+            ash.classList.add("ash");
+            ash.innerHTML = "•";
 
-<div class="quote" style="bottom: 8%; right: 12%; animation-delay:3.6s;">
-    «Ты — не твой банковский счёт»
-</div>
+            ash.style.left = Math.random() * 100 + "vw";
+            ash.style.animationDuration = (6 + Math.random() * 10) + "s";
+            ash.style.opacity = (0.1 + Math.random() * 0.4);
+            ash.style.fontSize = (3 + Math.random() * 4) + "px";
 
-<div class="card">
-    <div class="burned"></div>
+            document.body.appendChild(ash);
 
-    <img src="avatar.jpg" class="avatar">
+            setTimeout(() => {
+                ash.remove();
+            }, 15000);
+        }
 
-    <h1>CLABA</h1>
-    <div class="nick">@puflik123</div>
-
-    <a class="btn" href="https://discord.com/users/1234567890">Написать в Discord</a>
-</div>
+        setInterval(createAsh, 150);
+    </script>
 
 </body>
 </html>
