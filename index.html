@@ -1,23 +1,95 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>CLABA Discord Profile</title>
-<style>
-body{margin:0;font-family:Arial;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;}
-#bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(0.3);}
-.card{background:rgba(26,26,29,0.8);padding:30px;border-radius:20px;text-align:center;width:320px;backdrop-filter:blur(6px);}
-.avatar{width:120px;height:120px;border-radius:50%;border:4px solid #5865f2;object-fit:cover;}
-.btn{display:block;background:#5865f2;padding:12px;border-radius:12px;color:#fff;text-decoration:none;font-weight:bold;margin-top:20px;}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLABA Discord Profile</title>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Фоновое видео */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* затемнение */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 0;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            background: rgba(20, 20, 20, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            width: 320px;
+            margin: 150px auto;
+            text-align: center;
+            color: #fff;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #5865f2;
+            object-fit: cover;
+        }
+
+        .btn {
+            display: block;
+            background: #5865f2;
+            padding: 12px;
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #4752c4;
+        }
+    </style>
 </head>
+
 <body>
-<video autoplay muted loop playsinline id="bg-video" src="video.mp4"></video>
-<div class="card">
-<img class="avatar" src="data:image/jpeg;base64," alt="avatar"/>
-<h1>CLABA</h1>
-<div>@puflik123</div>
-<a class="btn" href="https://discord.com/users/1234567890">Написать в Discord</a>
-</div>
+
+    <!-- Видео -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <!-- затемнение -->
+    <div class="overlay"></div>
+
+    <!-- Карточка -->
+    <div class="card">
+        <img class="avatar" src="avatar.jpg" alt="avatar" />
+        <h1>CLABA</h1>
+        <div>@puflik123</div>
+        <a class="btn" href="https://discord.com/users/1234567890">Написать в Discord</a>
+    </div>
+
 </body>
 </html>
